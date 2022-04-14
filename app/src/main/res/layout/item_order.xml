@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_order_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dimen_16"
+    android:layout_marginTop="@dimen/dimen_10"
+    app:cardCornerRadius="@dimen/dimen_10">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/tv_title_washing_lbl"
+            android:layout_width="@dimen/reserv_lbl_text"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="@string/car_washing_lbl"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_car_type_lbl"
+            android:layout_width="@dimen/reserv_lbl_text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="@string/car_type_lbl"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_washing_lbl"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_washing_lbl" />
+
+        <TextView
+            android:id="@+id/tv_service_type_lbl"
+            android:layout_width="@dimen/reserv_lbl_text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="@string/service_type"
+            app:layout_constraintStart_toStartOf="@+id/tv_car_type_lbl"
+            app:layout_constraintTop_toBottomOf="@+id/tv_car_type_lbl" />
+
+        <TextView
+            android:id="@+id/tv_day_time_lbl"
+            android:layout_width="@dimen/reserv_lbl_text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:text="@string/day_time_lbl"
+            app:layout_constraintStart_toStartOf="@+id/tv_service_type_lbl"
+            app:layout_constraintTop_toBottomOf="@+id/tv_service_type_lbl" />
+
+        <TextView
+            android:id="@+id/tv_title_washing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title_washing_lbl"
+            app:layout_constraintStart_toEndOf="@+id/tv_title_washing_lbl"
+            app:layout_constraintTop_toTopOf="@+id/tv_title_washing_lbl" />
+
+        <TextView
+            android:id="@+id/tv_car_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_car_type_lbl"
+            app:layout_constraintStart_toEndOf="@+id/tv_car_type_lbl"
+            app:layout_constraintTop_toTopOf="@+id/tv_car_type_lbl" />
+
+        <TextView
+            android:id="@+id/tv_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_service_type_lbl"
+            app:layout_constraintStart_toEndOf="@+id/tv_service_type_lbl"
+            app:layout_constraintTop_toTopOf="@+id/tv_service_type_lbl" />
+
+        <TextView
+            android:id="@+id/tv_day_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_day_time_lbl"
+            app:layout_constraintStart_toEndOf="@+id/tv_day_time_lbl"
+            app:layout_constraintTop_toTopOf="@+id/tv_day_time_lbl" />
+
+        <ImageView
+            android:id="@+id/iv_star_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_marginEnd="@dimen/dimen_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_stars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

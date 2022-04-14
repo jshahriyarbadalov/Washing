@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.RegistrationActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="@string/registr_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_phone_code"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_32"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:text="@string/country_code"
+        android:textColor="@color/black"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/etp_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etp_phone" />
+
+    <EditText
+        android:id="@+id/etp_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_4"
+        android:layout_marginEnd="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_56"
+        android:ems="10"
+        android:hint="@string/hint_phone"
+        android:inputType="number"
+        android:maxLength="13"
+        android:minHeight="@dimen/dimen_48"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_phone_code"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <EditText
+        android:id="@+id/etpn_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:ems="10"
+        android:hint="@string/hint_name"
+        android:inputType="textPersonName"
+        android:minHeight="@dimen/dimen_48"
+        app:layout_constraintEnd_toEndOf="@+id/etp_phone"
+        app:layout_constraintStart_toStartOf="@+id/tv_phone_code"
+        app:layout_constraintTop_toBottomOf="@+id/etp_phone" />
+
+    <EditText
+        android:id="@+id/etpn_car_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:ems="10"
+        android:hint="@string/hint_car_number"
+        android:inputType="text"
+        android:minHeight="@dimen/dimen_48"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="@+id/etpn_name"
+        app:layout_constraintStart_toStartOf="@+id/etpn_name"
+        app:layout_constraintTop_toBottomOf="@+id/etpn_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_56"
+        android:backgroundTint="@color/light_blue"
+        android:paddingVertical="@dimen/dimen_16"
+        android:text="@string/next"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:ems="10"
+        android:hint="example@example.com"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/etpn_car_number"
+        app:layout_constraintStart_toStartOf="@+id/etpn_car_number"
+        app:layout_constraintTop_toBottomOf="@+id/etpn_car_number" />
+</androidx.constraintlayout.widget.ConstraintLayout>

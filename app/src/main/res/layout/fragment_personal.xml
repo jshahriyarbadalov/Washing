@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:cardCornerRadius="@dimen/dimen_10"
+        app:layout_constraintEnd_toEndOf="@+id/iv_logo"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toStartOf="@+id/iv_logo"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_16">
+
+            <ProgressBar
+                android:id="@+id/pb_loader"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_loader_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_data"
+                app:layout_constraintEnd_toEndOf="@+id/pb_loader"
+                app:layout_constraintStart_toStartOf="@+id/pb_loader"
+                app:layout_constraintTop_toBottomOf="@+id/pb_loader" />
+
+            <TextView
+                android:id="@+id/tv_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="Ad:"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:textSize="@dimen/h2"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name_label"
+                app:layout_constraintStart_toEndOf="@+id/tv_name_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_name_label" />
+
+            <TextView
+                android:id="@+id/tv_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="Telefon:"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_label"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_label" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:textSize="@dimen/h2"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_phone_label"
+                app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_phone_label" />
+
+            <TextView
+                android:id="@+id/tv_car_number_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="Maşının nömrəsı:"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_phone_label"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_label" />
+
+            <TextView
+                android:id="@+id/tv_car_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:textSize="@dimen/h2"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_car_number_lbl"
+                app:layout_constraintStart_toEndOf="@+id/tv_car_number_lbl"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_number_lbl"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_email_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="E-poçt:"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_number_lbl"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_number" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:textSize="@dimen/h2"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_email_lbl"
+                app:layout_constraintStart_toEndOf="@+id/tv_email_lbl"
+                app:layout_constraintTop_toTopOf="@+id/tv_email_lbl"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="@dimen/dimen_32"
+        android:src="@drawable/ic_loqo_washing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/dimen_10"
+        android:layout_marginHorizontal="@dimen/dimen_48"
+        app:cornerRadius="@dimen/dimen_10"
+        android:text="@string/exit"
+        android:textStyle="bold"
+        android:textSize="@dimen/h2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

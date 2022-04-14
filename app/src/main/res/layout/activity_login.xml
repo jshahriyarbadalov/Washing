@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_login_icon"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="@dimen/dimen_32"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_loqo_washing" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_56"
+        android:backgroundTint="@color/light_blue"
+        android:paddingVertical="@dimen/dimen_16"
+        android:text="@string/next"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_phone_code"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_32"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:text="@string/country_code"
+        android:textSize="@dimen/h1"
+        app:layout_constraintStart_toStartOf="@+id/iv_login_icon"
+        app:layout_constraintTop_toBottomOf="@+id/iv_login_icon"
+        />
+
+    <EditText
+        android:id="@+id/etp_phone"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_4"
+        android:ems="10"
+        android:hint="@string/hint_phone"
+        android:inputType="number"
+        android:maxLength="12"
+        android:minHeight="48dp"
+        android:textSize="@dimen/h2"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_phone_code"
+        app:layout_constraintStart_toEndOf="@+id/tv_phone_code"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone_code"
+        app:layout_constraintTop_toTopOf="@+id/tv_phone_code"/>
+
+    <EditText
+        android:id="@+id/etn_otp_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:ems="10"
+        android:hint="@string/hint_otp_code"
+        android:inputType="number"
+        android:maxLength="4"
+        android:minHeight="48dp"
+        android:textSize="@dimen/h2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_login_icon"
+        app:layout_constraintStart_toStartOf="@+id/iv_login_icon"
+        app:layout_constraintTop_toBottomOf="@+id/etp_phone" />
+
+    <ProgressBar
+        android:id="@+id/pb_loader_login"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
