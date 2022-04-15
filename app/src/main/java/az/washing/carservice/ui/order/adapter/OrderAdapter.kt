@@ -3,6 +3,7 @@ package az.washing.carservice.ui.order.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.collection.ArraySet
 import androidx.recyclerview.widget.RecyclerView
 import az.washing.carservice.databinding.ItemOrderBinding
 import az.washing.carservice.models.Order
@@ -27,7 +28,7 @@ class OrderAdapter(var view: OrderView) : RecyclerView.Adapter<OrderAdapter.Orde
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addOrderItems(orders: ArrayList<Order>) {
+    fun addOrderItems(orders: ArraySet<Order>) {
         orderList.clear()
         orderList.addAll(orders)
         notifyDataSetChanged()

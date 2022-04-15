@@ -1,9 +1,11 @@
 package az.washing.carservice.ui.order
 
 import android.os.Bundle
+import android.util.ArraySet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.arraySetOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,7 +24,7 @@ class OrderFragment : Fragment(), OrderView {
     private val binding get() = _binding!!
     private val washingList = mutableListOf<Washing>()
     private val reservationList = mutableListOf<Reservation>()
-    var orderList: ArrayList<Order> = arrayListOf()
+    var orderList: androidx.collection.ArraySet<Order> = arraySetOf()
     private var adapter: OrderAdapter = OrderAdapter(this)
     private val viewModel by viewModels<OrderViewModel>()
     private val bundle = Bundle()
@@ -87,13 +89,13 @@ class OrderFragment : Fragment(), OrderView {
     }
 
     override fun editOrder(orderId: Int) {
-        bundle.putString("washing_name", orderList[orderId].washingName)
-        bundle.putString("vehicle_type", orderList[orderId].vehicle_type)
-        bundle.putString("service_type", orderList[orderId].service_type)
-        bundle.putString("order_day", orderList[orderId].day)
-        bundle.putString("order_time", orderList[orderId].time)
-        bundle.putInt("order_cancel", 1)
-        findNavController().navigate(R.id.action_orderFragment_to_bookingFragment2, bundle)
+//        bundle.putString("washing_name", orderList[orderId].washingName)
+//        bundle.putString("vehicle_type", orderList[orderId].vehicle_type)
+//        bundle.putString("service_type", orderList[orderId].service_type)
+//        bundle.putString("order_day", orderList[orderId].day)
+//        bundle.putString("order_time", orderList[orderId].time)
+//        bundle.putInt("order_cancel", 1)
+       // findNavController().navigate(R.id.action_orderFragment_to_bookingFragment2, bundle)
     }
 
 }
