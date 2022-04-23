@@ -188,7 +188,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             washingId = it?.id
         }
         if (washingId != 0) {
-            washingId?.let { viewModel.getTimesData(it, sdf.format(Calendar.getInstance().time)) }
+            washingId?.let { viewModel.getTimesData(it, sdf.format(cal.time)) }
         }
     }
 
