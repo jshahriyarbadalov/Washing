@@ -49,7 +49,7 @@ class MainFragment : Fragment(), MainView {
     }
 
     override fun goBooking(id: Int) {
-        bundle.putString(WASHING_ID, id.toString())
+        bundle.putInt(WASHING_ID, id)
         findNavController().navigate(R.id.action_mainFragment_to_bookingFragment, bundle)
     }
 

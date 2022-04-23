@@ -52,7 +52,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     private var washingId: Int? = 0
     private val cal = Calendar.getInstance()
     private val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    private val washId = arguments?.getString(WASHING_ID)?.toInt()
 
 
     override fun onCreateView(
@@ -79,7 +78,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 pbLoader.isVisible = it
                 tvLoaderTxt.isVisible = it
                 viewTransparent.isVisible = it
-                isClickable(it)
             }
         })
         viewModel.bookedOrders.observe(viewLifecycleOwner, Observer {
@@ -210,11 +208,11 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             spinWashingName.adapter = spinAdapter
 
             val washOrderId = arguments?.getInt("washing_name")
+            val washId = arguments?.getInt(WASHING_ID)
 
-
-            if (arguments?.containsKey("washing_name") == true) {
+            if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
                 washOrderId?.let { orderIndexId ->
-                    if (orderIndexId >= spinWashingName.size) {
+                    if (orderIndexId <= spinWashingName.size) {
                         spinWashingName.setSelection(LIST_INDEX_ZERO)
                     } else {
                         spinWashingName.setSelection(orderIndexId)
@@ -222,10 +220,11 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                     washings.find { it.washingName == spinWashingName.selectedItem }.let {
                         washingId = it?.id
                     }
+                    washingId?.let { viewModel.getTimesData(it, getDay) }
                 }
             } else {
                 washId?.let { indexId ->
-                    if (indexId >= spinWashingName.size) {
+                    if (indexId <= spinWashingName.size) {
                         spinWashingName.setSelection(LIST_INDEX_ZERO)
                     } else {
                         spinWashingName.setSelection(indexId)
@@ -265,8 +264,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
-
-
     }
 
     private fun filter() {
