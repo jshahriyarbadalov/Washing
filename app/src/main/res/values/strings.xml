@@ -36,4 +36,5 @@
     <string name="day_time_lbl">Tarix və vaxt:</string>
     <string name="exit">Çıxış</string>
     <string name="load_message_txt">Zəhmət olmasa gözləyin</string>
+    <string name="true_order_fill">Zəhmət olmasa sifarişi düzgün doldurun.</string>
 </resources>

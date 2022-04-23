@@ -43,8 +43,14 @@ object Repository {
         return ApiService.washingApi.reservationsAdd(auth, add)
     }
 
-    suspend fun reservationUpdate(auth: String, update: ReservationUpdate): Response<SendOtpResponse> {
+    suspend fun reservationUpdate(
+        auth: String,
+        update: ReservationUpdate
+    ): Response<SendOtpResponse> {
         return ApiService.washingApi.reservationsUpdate(auth, update)
     }
 
+    suspend fun getTimes(id: Int, day: String): Response<List<String>> {
+        return ApiService.washingApi.getTimes(id, day)
+    }
 }

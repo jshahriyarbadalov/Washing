@@ -12,4 +12,6 @@
     <color name="light_gray">#E4DEDE</color>
     <color name="red">#F44336</color>
     <color name="light_blue">#33adff</color>
+    <color name="transparent">#35000000</color>
+    <color name="light_gray_f2">#f2f2f2f2</color>
 </resources>

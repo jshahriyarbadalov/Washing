@@ -8,6 +8,7 @@ class Constants {
         const val USER_TOKEN = "user_token"
         const val SAVE_DATA = "save_data"
         const val WASHING_ID = "washing_id"
+        const val STATUS_UPDATE = "status_update"
 
     }
 }

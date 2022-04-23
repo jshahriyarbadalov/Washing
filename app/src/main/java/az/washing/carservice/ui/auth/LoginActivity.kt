@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity(), AuthView {
         if (!NetworkConnection.isOnline(this)) {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("İnternet problemi")
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_alert_error)
                 .setMessage("İnternet şəbəkəyə qoşulun və yenidən daxil olun")
                 .create()
                 .show()
@@ -55,8 +55,8 @@ class LoginActivity : AppCompatActivity(), AuthView {
                             phone = StringUtils.phoneEdit(newPhone)
                             if (StringUtils.getPhone("+$phone")) {
                                 pbLoaderLogin.isVisible = true
-                                viewModel.sendOtp(phone)
                                 btnNext.isCheckable = false
+                                viewModel.sendOtp(phone)
                             } else {
                                 showToastMessage("Telefon nömrəni düzgün daxil edin")
                             }
@@ -79,7 +79,6 @@ class LoginActivity : AppCompatActivity(), AuthView {
 
     override fun otpCode() = with(binding) {
         etpPhone.isEnabled = false
-        etpPhone.isClickable = false
         etnOtpCode.isEnabled = true
         etnOtpCode.isVisible = true
         btnNext.text = getString(R.string.confirm)

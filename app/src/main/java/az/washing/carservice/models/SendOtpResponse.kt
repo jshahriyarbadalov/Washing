@@ -7,7 +7,7 @@ data class SendOtpResponse(
     @SerializedName("message")
     @Expose
     val message: String,
-    @SerializedName("code")
+    @SerializedName("status")
     @Expose
     val status: Int,
     @SerializedName("token")

@@ -1,12 +1,14 @@
 package az.washing.carservice.ui.main
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import az.washing.carservice.databinding.ItemWashingBinding
 import az.washing.carservice.models.Washing
 import com.bumptech.glide.Glide
+import java.net.URL
 
 
 class MainWashingAdapter(var view: MainView) :
@@ -43,13 +45,20 @@ class MainWashingAdapter(var view: MainView) :
                 tvTitle.text = washing.washingName
                 tvName.text = washing.ownerName
                 tvAddress.text = washing.address
+
                 if (!washing.image.isNullOrEmpty()) {
-                    Glide.with(binding.root).load(washing.image).into(ivIcon)
+
+                    Glide.with(binding.root).asBitmap().load(washing.image)
+                        .override(30, 30)
+                        .placeholder(az.washing.carservice.R.drawable.ic_image)
+                        .error(az.washing.carservice.R.drawable.ic_local_car_wash)
+                        .centerCrop()
+                        .into(ivIcon)
                 }
 
-//                ivAdd.setOnClickListener {
-//                    view.goBooking(position)
-//                }
+                ivAdd.setOnClickListener {
+                    view.goBooking(position)
+                }
                 ivMap.setOnClickListener {
                     washing.address?.let { it1 -> view.goMap(it1) }
                 }

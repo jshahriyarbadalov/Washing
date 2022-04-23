@@ -2,7 +2,6 @@ package az.washing.carservice.ui.order
 
 import android.R
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,15 +11,19 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import az.washing.carservice.databinding.FragmentBookingBinding
 import az.washing.carservice.models.ReservationAdd
+import az.washing.carservice.models.ReservationUpdate
 import az.washing.carservice.models.Washing
 import az.washing.carservice.utils.CarType
+import az.washing.carservice.utils.Constants.Companion.STATUS_UPDATE
 import az.washing.carservice.utils.Constants.Companion.WASHING_ID
 import az.washing.carservice.utils.ServiceType
 import java.text.SimpleDateFormat
@@ -31,7 +34,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
 
     companion object {
         const val DATE_FORMAT = "dd.MM.yyyy"
-        const val TIME_FORMAT = "HH:mm:ss"
+        const val LIST_INDEX_ZERO = 0
     }
 
     private val viewModel by viewModels<OrderViewModel>()
@@ -41,6 +44,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
 
     private var washings: ArrayList<Washing> = arrayListOf()
     private var washingNames: ArrayList<String> = arrayListOf()
+    private var timeList: ArrayList<String> = arrayListOf()
     private var carType: String = ""
     private var serviceType: String = ""
     private var getTime = ""
@@ -48,7 +52,8 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     private var washingId: Int? = 0
     private val cal = Calendar.getInstance()
     private val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    private val timeSdf = SimpleDateFormat(TIME_FORMAT, Locale.getDefault())
+    private val washId = arguments?.getString(WASHING_ID)?.toInt()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,67 +69,129 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         chooseCarType()
         chooseServices()
         dateTimePicker()
-//        getEditOrder()
+        getEditOrder()
         viewModel.washings.observe(viewLifecycleOwner, Observer {
             washings.addAll(it)
             initSpinner()
         })
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            with(binding) {
+                pbLoader.isVisible = it
+                tvLoaderTxt.isVisible = it
+                viewTransparent.isVisible = it
+                isClickable(it)
+            }
+        })
+        viewModel.bookedOrders.observe(viewLifecycleOwner, Observer {
+            timeList.addAll(it)
+            initSpinnerTime()
+        })
+
         binding.apply {
             isClickable(true)
             pbLoader.isVisible = false
             viewTransparent.isVisible = false
             tvLoaderTxt.isVisible = false
+            tvShowTime.isVisible = false
+            spinTime.isVisible = false
+            btnConfirm.isClickable = false
+
             spinWashingName.onItemSelectedListener = this@BookingFragment
             btnConfirm.setOnClickListener {
-                Log.d("Hello", "$carType, $serviceType, $getDay, $getTime")
-                if (carType.isNotEmpty() && serviceType.isNotEmpty()
-                    && getDay.isNotEmpty() && getTime.isNotEmpty()
-                ) {
-                    pbLoader.isVisible = true
-                    tvLoaderTxt.isVisible = true
-                    viewTransparent.isVisible = true
-                    isClickable(false)
-                    viewModel.addReservation(
-                        ReservationAdd(
-                            washingId,
-                            carType,
-                            serviceType,
-                            getDay,
-                            getTime
-                        )
-                    )
-
-
-                } else {
-                    Toast.makeText(
-                        root.context,
-                        "Zəhmət olmasa sifarişi düzgün doldurun.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                onOrderClick()
             }
         }
+    }
 
+    private fun onOrderClick() = with(binding) {
+        Log.d("Hello", "$carType, $serviceType, $getDay, $getTime")
+        if (carType.isNotEmpty() && serviceType.isNotEmpty()
+            && getDay.isNotEmpty() && getTime.isNotEmpty()
+        ) {
+            pbLoader.isVisible = true
+            tvLoaderTxt.isVisible = true
+            viewTransparent.isVisible = true
+            isClickable(false)
+
+            if (arguments?.containsKey(STATUS_UPDATE) == true) {
+                viewModel.updateReservation(
+                    ReservationUpdate(
+                        washingId,
+                        carType,
+                        serviceType,
+                        getDay,
+                        getTime,
+                        0
+                    )
+                )
+            } else {
+                viewModel.addReservation(
+                    ReservationAdd(
+                        washingId,
+                        carType,
+                        serviceType,
+                        getDay,
+                        getTime
+                    )
+                )
+            }
+
+        } else {
+            Toast.makeText(
+                root.context,
+                getString(az.washing.carservice.R.string.true_order_fill),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun getEditOrder() {
-        arguments?.getString("washing_name")
-        arguments?.getString("vehicle_type")
-        arguments?.getString("service_type")
-        arguments?.getString("order_day")
-        arguments?.getString("order_time")
-        arguments?.getInt("order_cancel", 1)
+        val vehicle = arguments?.getString("vehicle_type")
+        val service = arguments?.getString("service_type")
+        val orderDay = arguments?.getString("order_day")
+        val orderTime = arguments?.getString("order_time")
+        binding.apply {
+            if (!vehicle.isNullOrEmpty() && !service.isNullOrEmpty()
+                && !orderDay.isNullOrEmpty() && !orderTime.isNullOrEmpty()
+            ) {
+                if (vehicle == CarType.JEEP) {
+                    rbJeep.isChecked = true
+                    carType = CarType.JEEP
+                } else {
+                    rbSedan.isChecked = true
+                    carType = CarType.SEDAN
+                }
 
+                when (service) {
+                    ServiceType.FULL -> {
+                        rbFull.isChecked = true
+                        serviceType = ServiceType.FULL
+                    }
+                    ServiceType.YARIM -> {
+                        rbHalf.isChecked = true
+                        serviceType = ServiceType.YARIM
+                    }
+                    else -> {
+                        rbChemical.isChecked = true
+                        serviceType = ServiceType.XIMCISTKA
+                    }
+                }
+                tvShowDate.text = orderDay
+                getDay = orderDay
+                tvShowTime.text = orderTime
+                getTime = orderTime
+            }
+        }
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         washings.find { it.washingName == washingNames[p2] }.let {
             washingId = it?.id
         }
-
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) = Unit
+
 
     private fun initSpinner() {
         filter()
@@ -139,9 +206,67 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             R.layout.simple_spinner_dropdown_item
         )
 
-        binding.spinWashingName.adapter = spinAdapter
-        val washId = arguments?.getString(WASHING_ID)?.toInt()
-        washId?.let { binding.spinWashingName.setSelection(it) }
+        binding.apply {
+            spinWashingName.adapter = spinAdapter
+
+            val washOrderId = arguments?.getInt("washing_name")
+
+
+            if (arguments?.containsKey("washing_name") == true) {
+                washOrderId?.let { orderIndexId ->
+                    if (orderIndexId >= spinWashingName.size) {
+                        spinWashingName.setSelection(LIST_INDEX_ZERO)
+                    } else {
+                        spinWashingName.setSelection(orderIndexId)
+                    }
+                    washings.find { it.washingName == spinWashingName.selectedItem }.let {
+                        washingId = it?.id
+                    }
+                }
+            } else {
+                washId?.let { indexId ->
+                    if (indexId >= spinWashingName.size) {
+                        spinWashingName.setSelection(LIST_INDEX_ZERO)
+                    } else {
+                        spinWashingName.setSelection(indexId)
+                    }
+                    washings.find { it.washingName == spinWashingName.selectedItem }.let {
+                        washingId = it?.id
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initSpinnerTime() = with(binding) {
+
+        val spinTimeAdapter: ArrayAdapter<String>? = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.simple_spinner_item,
+                timeList
+            )
+
+        }
+        spinTimeAdapter?.setDropDownViewResource(
+            R.layout.simple_spinner_dropdown_item
+        )
+        spinTime.adapter = spinTimeAdapter
+
+
+        spinTime.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                itemSelected: View, selectedItemPosition: Int, selectedId: Long
+            ) {
+                getTime = timeList[selectedItemPosition]
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+
+
     }
 
     private fun filter() {
@@ -149,6 +274,16 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             item.washingName?.let { washingNames.add(it) }
         }
     }
+
+    override fun filterForTime() {
+        binding.apply {
+            spinTime.isVisible = true
+            tvShowTime.isVisible = true
+            btnConfirm.isCheckable = true
+        }
+
+    }
+
 
     private fun chooseCarType() {
         binding.apply {
@@ -186,20 +321,32 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     }
 
     private fun dateTimePicker() {
+
         binding.apply {
             val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, month)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                tvShowDate.text = sdf.format(cal.time)
-                getDay = tvShowDate.text.toString()
-            }
+                if (cal.time <= Calendar.getInstance().time) {
+                    Toast.makeText(context, "Günü düz seçin", Toast.LENGTH_LONG).show()
+                    tvShowDate.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            az.washing.carservice.R.color.red
+                        )
+                    )
+                } else {
+                    tvShowDate.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            az.washing.carservice.R.color.light_gray
+                        )
+                    )
+                    tvShowDate.text = sdf.format(cal.time)
+                    washingId?.let { viewModel.getTimesData(it, sdf.format(cal.time)) }
+                    getDay = tvShowDate.text.toString()
 
-            val timePicker = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                cal.set(Calendar.MINUTE, minute)
-                tvShowTime.text = timeSdf.format(cal.time)
-                getTime = tvShowTime.text.toString()
+                }
             }
 
             btnShowDate.setOnClickListener {
@@ -210,22 +357,12 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
             }
-
-            btnShowTime.setOnClickListener {
-                TimePickerDialog(
-                    root.context,
-                    timePicker,
-                    cal.get(Calendar.HOUR_OF_DAY),
-                    cal.get(Calendar.MINUTE),
-                    true
-                ).show()
-            }
         }
     }
 
+
     private fun isClickable(isClick: Boolean) = with(binding) {
         btnConfirm.isCheckable = isClick
-        btnShowTime.isCheckable = isClick
         btnShowDate.isCheckable = isClick
         rbChemical.isClickable = isClick
         rbHalf.isClickable = isClick
@@ -244,9 +381,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         findNavController().navigate(az.washing.carservice.R.id.action_bookingFragment_to_mainFragment)
     }
 
-    override fun getTimeText(timeText: String) {
-        getTime = timeText
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

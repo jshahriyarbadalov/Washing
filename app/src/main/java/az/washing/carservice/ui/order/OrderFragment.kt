@@ -1,10 +1,10 @@
 package az.washing.carservice.ui.order
 
 import android.os.Bundle
-import android.util.ArraySet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.collection.arraySetOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,15 +15,17 @@ import az.washing.carservice.R
 import az.washing.carservice.databinding.FragmentOrderBinding
 import az.washing.carservice.models.Order
 import az.washing.carservice.models.Reservation
+import az.washing.carservice.models.ReservationUpdate
 import az.washing.carservice.models.Washing
 import az.washing.carservice.ui.order.adapter.OrderAdapter
+import az.washing.carservice.utils.Constants.Companion.STATUS_UPDATE
 
 
 class OrderFragment : Fragment(), OrderView {
     private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
-    private val washingList = mutableListOf<Washing>()
-    private val reservationList = mutableListOf<Reservation>()
+    private val washingList = mutableSetOf<Washing>()
+    private val reservationList = mutableSetOf<Reservation>()
     var orderList: androidx.collection.ArraySet<Order> = arraySetOf()
     private var adapter: OrderAdapter = OrderAdapter(this)
     private val viewModel by viewModels<OrderViewModel>()
@@ -39,7 +41,7 @@ class OrderFragment : Fragment(), OrderView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.viewOrder = this
         viewModel.washings.observe(viewLifecycleOwner, Observer {
             washingList.addAll(it)
         })
@@ -63,11 +65,18 @@ class OrderFragment : Fragment(), OrderView {
     }
 
     private fun filter() {
+        var name = ""
         for (item in reservationList) {
             washingList.find { it.id == item.washing_id }.let {
+                val result = it?.washingName.isNullOrEmpty()
+                name = if (result) {
+                    ""
+                } else {
+                    it?.washingName.toString()
+                }
                 orderList.add(
                     Order(
-                        it?.washingName.toString(),
+                        name,
                         item.vehicle_type,
                         item.service_type,
                         item.day,
@@ -88,14 +97,34 @@ class OrderFragment : Fragment(), OrderView {
         _binding = null
     }
 
+    override fun showSuccessMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
     override fun editOrder(orderId: Int) {
-//        bundle.putString("washing_name", orderList[orderId].washingName)
-//        bundle.putString("vehicle_type", orderList[orderId].vehicle_type)
-//        bundle.putString("service_type", orderList[orderId].service_type)
-//        bundle.putString("order_day", orderList[orderId].day)
-//        bundle.putString("order_time", orderList[orderId].time)
-//        bundle.putInt("order_cancel", 1)
-       // findNavController().navigate(R.id.action_orderFragment_to_bookingFragment2, bundle)
+        bundle.putInt("washing_name", orderId)
+        bundle.putString("vehicle_type", orderList.elementAt(orderId).vehicle_type)
+        bundle.putString("service_type", orderList.elementAt(orderId).service_type)
+        bundle.putString("order_day", orderList.elementAt(orderId).day)
+        bundle.putString("order_time", orderList.elementAt(orderId).time)
+        bundle.putString(STATUS_UPDATE, "updated")
+        findNavController().navigate(R.id.action_orderFragment_to_bookingFragment2, bundle)
+    }
+
+    override fun cancelOrder(orderId: Int) {
+        washingList.find { it.washingName == orderList.elementAt(orderId).washingName }.let {
+            viewModel.cancelReservation(
+                ReservationUpdate(
+                    it?.id,
+                    orderList.elementAt(orderId).vehicle_type,
+                    orderList.elementAt(orderId).service_type,
+                    orderList.elementAt(orderId).day,
+                    orderList.elementAt(orderId).time,
+                    1
+                )
+            )
+            orderList.removeAt(orderId)
+        }
     }
 
 }

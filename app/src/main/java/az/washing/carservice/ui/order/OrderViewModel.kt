@@ -25,14 +25,20 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     val reservations: LiveData<List<Reservation>> get() = _reservations
     private var _washingList = MutableLiveData<List<Washing>>(emptyList())
     val washings: LiveData<List<Washing>> get() = _washingList
+    private var _bookedOrderList = MutableLiveData<List<String>>(emptyList())
+    val bookedOrders: LiveData<List<String>> get() = _bookedOrderList
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+
     lateinit var view: BookingView
+    lateinit var viewOrder: OrderView
+
 
     init {
         loadWashing()
         loadDataOrder()
+        //  reservationTime()
     }
 
     private fun loadWashing() {
@@ -92,4 +98,34 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun cancelReservation(update: ReservationUpdate) {
+        viewModelScope.launch {
+            val reservationUpdate = Repository.reservationUpdate(
+                "Bearer $token",
+                update
+            )
+
+            reservationUpdate.let {
+                if (it.body()?.status == 200) {
+                    viewOrder.showSuccessMessage("Sifarişiniz uğurla ləğv olundu!")
+                } else {
+                    it.message()
+                    viewOrder.showSuccessMessage("Sifarişiniz ləğv olunmadı. Yenidən cəht edin.")
+                }
+            }
+        }
+    }
+
+    fun getTimesData(id: Int, day: String) {
+        viewModelScope.launch {
+            val repository = Repository.getTimes(id, day)
+            _bookedOrderList.postValue(repository.body())
+
+            if (!repository.body().isNullOrEmpty()) {
+                view.filterForTime()
+            }
+        }
+    }
+
 }

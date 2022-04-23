@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.collection.ArraySet
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import az.washing.carservice.databinding.ItemOrderBinding
 import az.washing.carservice.models.Order
@@ -42,7 +43,11 @@ class OrderAdapter(var view: OrderView) : RecyclerView.Adapter<OrderAdapter.Orde
                 tvServiceType.text = order.service_type
                 tvDayTime.text = "${order.day}, ${order.time}"
 
-                cvOrderRoot.setOnClickListener { view.editOrder(position) }
+                ivEdit.setOnClickListener { view.editOrder(position) }
+                ivDelete.isVisible = true
+                ivDelete.setOnClickListener {
+                    view.cancelOrder(position)
+                }
             }
         }
     }

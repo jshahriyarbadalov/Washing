@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_8"
         android:paddingVertical="@dimen/dimen_8"
+        android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_washing_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_washing_name"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -164,9 +165,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
-        android:background="@color/light_gray"
-        android:padding="5dp"
-        android:text="vaxt"
+        android:text="Vaxtı seçin"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/h2"
@@ -174,19 +173,6 @@
         app:layout_constraintStart_toStartOf="@+id/tv_show_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_show_date" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_show_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10"
-        android:backgroundTint="@color/light_blue"
-        android:paddingVertical="5dp"
-        android:text="@string/choose_time"
-        android:textStyle="bold"
-        app:cornerRadius="@dimen/dimen_10"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_show_time"
-        app:layout_constraintStart_toEndOf="@+id/tv_show_time"
-        app:layout_constraintTop_toTopOf="@+id/tv_show_time" />
 
     <ProgressBar
         android:id="@+id/pb_loader"
@@ -217,11 +203,25 @@
         android:id="@+id/view_transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foreground="#90000000"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spin_time"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:paddingVertical="@dimen/dimen_8"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tv_show_time"
+        app:layout_constraintStart_toStartOf="@+id/tv_show_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_show_time"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

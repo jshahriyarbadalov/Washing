@@ -34,8 +34,11 @@ interface WashingApi {
     ): Response<SendOtpResponse>
 
     @POST("reservations/update")
-        suspend fun reservationsUpdate(
+    suspend fun reservationsUpdate(
         @Header("Authorization") auth: String,
         @Body reservation: ReservationUpdate
     ): Response<SendOtpResponse>
+
+    @GET("times/{id}/{day}")
+    suspend fun getTimes(@Path("id") id: Int, @Path("day") day: String): Response<List<String>>
 }
