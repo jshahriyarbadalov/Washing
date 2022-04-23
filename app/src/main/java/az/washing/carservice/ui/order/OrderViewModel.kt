@@ -69,7 +69,7 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                 add
             )
             reservationData.let {
-                if (it.code() == 200) {
+                if (it.body()?.status == 200) {
                     view.showSuccessMessage("Sifarişiniz uğurla qeydə alındı!")
                     view.goBack()
                 } else {

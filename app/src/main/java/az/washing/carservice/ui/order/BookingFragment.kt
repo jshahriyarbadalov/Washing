@@ -81,6 +81,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             }
         })
         viewModel.bookedOrders.observe(viewLifecycleOwner, Observer {
+            timeList.clear()
             timeList.addAll(it)
             initSpinnerTime()
         })
@@ -186,6 +187,9 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         washings.find { it.washingName == washingNames[p2] }.let {
             washingId = it?.id
         }
+        if (washingId != 0) {
+            washingId?.let { viewModel.getTimesData(it, sdf.format(Calendar.getInstance().time)) }
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) = Unit
@@ -290,7 +294,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 }
             }
             rbJeep.setOnClickListener {
-                if (rbSedan.isChecked) {
+                if (rbJeep.isChecked) {
                     carType = CarType.JEEP
                 }
             }
@@ -320,6 +324,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     private fun dateTimePicker() {
 
         binding.apply {
+
             val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, month)
@@ -332,6 +337,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                             az.washing.carservice.R.color.red
                         )
                     )
+                    tvShowDate.text = sdf.format(cal.time)
                 } else {
                     tvShowDate.setBackgroundColor(
                         ContextCompat.getColor(
@@ -371,6 +377,12 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
 
     override fun showSuccessMessage(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        isClickable(true)
+        binding.apply {
+            pbLoader.isVisible = false
+            tvLoaderTxt.isVisible = false
+            viewTransparent.isVisible = false
+        }
     }
 
     override fun goBack() {
