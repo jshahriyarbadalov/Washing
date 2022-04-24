@@ -69,6 +69,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         chooseServices()
         dateTimePicker()
         getEditOrder()
+
         viewModel.washings.observe(viewLifecycleOwner, Observer {
             washings.addAll(it)
             initSpinner()
@@ -99,6 +100,19 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             btnConfirm.setOnClickListener {
                 onOrderClick()
             }
+
+            btnCancel.setOnClickListener {
+                viewModel.cancelReservation(
+                    ReservationUpdate(
+                        washingId,
+                        carType,
+                        serviceType,
+                        getDay,
+                        getTime,
+                        1
+                    )
+                )
+            }
         }
     }
 
@@ -112,7 +126,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             viewTransparent.isVisible = true
             isClickable(false)
 
-            if (arguments?.containsKey(STATUS_UPDATE) == true) {
+            if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
                 viewModel.updateReservation(
                     ReservationUpdate(
                         washingId,
@@ -144,43 +158,46 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         }
     }
 
-    private fun getEditOrder() {
+    private fun getEditOrder() = with(binding) {
         val vehicle = arguments?.getString("vehicle_type")
         val service = arguments?.getString("service_type")
         val orderDay = arguments?.getString("order_day")
         val orderTime = arguments?.getString("order_time")
-        binding.apply {
-            if (!vehicle.isNullOrEmpty() && !service.isNullOrEmpty()
-                && !orderDay.isNullOrEmpty() && !orderTime.isNullOrEmpty()
-            ) {
-                if (vehicle == CarType.JEEP) {
-                    rbJeep.isChecked = true
-                    carType = CarType.JEEP
-                } else {
-                    rbSedan.isChecked = true
-                    carType = CarType.SEDAN
-                }
 
-                when (service) {
-                    ServiceType.FULL -> {
-                        rbFull.isChecked = true
-                        serviceType = ServiceType.FULL
-                    }
-                    ServiceType.YARIM -> {
-                        rbHalf.isChecked = true
-                        serviceType = ServiceType.YARIM
-                    }
-                    else -> {
-                        rbChemical.isChecked = true
-                        serviceType = ServiceType.XIMCISTKA
-                    }
-                }
-                tvShowDate.text = orderDay
-                getDay = orderDay
-                tvShowTime.text = orderTime
-                getTime = orderTime
+        if (!vehicle.isNullOrEmpty() && !service.isNullOrEmpty()
+            && !orderDay.isNullOrEmpty() && !orderTime.isNullOrEmpty()
+        ) {
+            btnConfirm.text = getString(az.washing.carservice.R.string.save)
+            btnCancel.isVisible = true
+            tvShowTimeLbl.isVisible = true
+            if (vehicle == CarType.JEEP) {
+                rbJeep.isChecked = true
+                carType = CarType.JEEP
+            } else {
+                rbSedan.isChecked = true
+                carType = CarType.SEDAN
             }
+
+            when (service) {
+                ServiceType.FULL -> {
+                    rbFull.isChecked = true
+                    serviceType = ServiceType.FULL
+                }
+                ServiceType.YARIM -> {
+                    rbHalf.isChecked = true
+                    serviceType = ServiceType.YARIM
+                }
+                else -> {
+                    rbChemical.isChecked = true
+                    serviceType = ServiceType.XIMCISTKA
+                }
+            }
+            getDay = orderDay
+            tvShowDate.text = getDay
+            getTime = orderTime
+            tvShowTimeLbl.text = getTime
         }
+
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -256,14 +273,12 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         )
         spinTime.adapter = spinTimeAdapter
 
-
         spinTime.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 itemSelected: View, selectedItemPosition: Int, selectedId: Long
             ) {
                 getTime = timeList[selectedItemPosition]
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -329,16 +344,12 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, month)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                if (cal.time <= Calendar.getInstance().time) {
-                    Toast.makeText(context, "Günü düz seçin", Toast.LENGTH_LONG).show()
-                    tvShowDate.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            az.washing.carservice.R.color.red
-                        )
-                    )
-                    tvShowDate.text = sdf.format(cal.time)
-                } else {
+                Log.d("time1", cal.time.toString())
+                Log.d("time12", Calendar.getInstance().time.toString())
+                val currentDay = sdf.format(cal.time)
+                val chooseDay = sdf.format(Calendar.getInstance().time)
+
+                if (cal.time.after(Calendar.getInstance().time) || currentDay.equals(chooseDay)) {
                     tvShowDate.setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(),
@@ -349,6 +360,15 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                     washingId?.let { viewModel.getTimesData(it, sdf.format(cal.time)) }
                     getDay = tvShowDate.text.toString()
 
+                } else {
+                    Toast.makeText(context, "Günü düz seçin", Toast.LENGTH_LONG).show()
+                    tvShowDate.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            az.washing.carservice.R.color.red
+                        )
+                    )
+                    tvShowDate.text = sdf.format(cal.time)
                 }
             }
 
@@ -373,6 +393,8 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         rbJeep.isClickable = isClick
         rbSedan.isClickable = isClick
         spinWashingName.isClickable = isClick
+        spinTime.isClickable = isClick
+        btnCancel.isClickable = isClick
     }
 
     override fun showSuccessMessage(message: String) {
@@ -389,7 +411,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         binding.pbLoader.isVisible = false
         findNavController().navigate(az.washing.carservice.R.id.action_bookingFragment_to_mainFragment)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

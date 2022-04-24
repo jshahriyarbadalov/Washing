@@ -4,6 +4,6 @@ class ServiceType {
     companion object {
         const val FULL = "Full"
         const val YARIM = "Yarim"
-        const val XIMCISTKA = "Ximcistka"
+        const val XIMCISTKA = "Kimyəvi təmizləmə"
     }
 }

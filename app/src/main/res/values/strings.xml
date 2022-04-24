@@ -6,7 +6,7 @@
     <string name="order_title">Sifarişlər</string>
     <string name="about_title">Haqqında</string>
     <string name="reservation_title">Rezervasiya</string>
-    <string name="about_description">Bu tətbiq yaxınlıqda olan avtomobil yuma servislerində öncədən qeydiyyat etmək üçün yaradılıb. Tətbiqi bacardıqımız qədər istifadəsinin asat etmişik ki, Sizə rahat olsun istifadə etməyə.</string>
+    <string name="about_description">Həyatınızı asanlaşdıracaq mobil tətbiq. Ən yaxın yerdə ən tez avtoyuma üçün online növbə. Rahatlığınız üçün hər şeyi maksimum sadə etdik.</string>
     <string name="next">Davam</string>
     <string name="country_code">+994</string>
     <string name="hint_phone">(XX)XXX-XX-XX</string>
@@ -23,11 +23,12 @@
     <string name="sedan">Sedan</string>
     <string name="jeep">Jeep</string>
     <string name="services">Xidmətlər:</string>
-    <string name="full_wash">Tam yuma</string>
-    <string name="half_wash">Yarım yuma</string>
-    <string name="cleaning">Kimiyəvi təmizləmə</string>
+    <string name="full_wash">Tam maşın yuma</string>
+    <string name="half_wash">Avtoyuma</string>
+    <string name="cleaning">Kimyəvi təmizləmə</string>
     <string name="date_time">Gün və tarıx:</string>
-    <string name="order">Sifarış et</string>
+    <string name="order">Sifariş et</string>
+    <string name="cancel">Sifarişdən imtina et</string>
     <string name="car_washing_name">Avto yuma adı:</string>
     <string name="load_data">yüklənir</string>
     <string name="car_washing_lbl">Avto yuma:</string>
@@ -37,4 +38,5 @@
     <string name="exit">Çıxış</string>
     <string name="load_message_txt">Zəhmət olmasa gözləyin</string>
     <string name="true_order_fill">Zəhmət olmasa sifarişi düzgün doldurun.</string>
+    <string name="save">Yadda Saxla</string>
 </resources>

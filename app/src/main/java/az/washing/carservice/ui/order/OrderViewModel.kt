@@ -30,15 +30,12 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-
     lateinit var view: BookingView
     lateinit var viewOrder: OrderView
-
 
     init {
         loadWashing()
         loadDataOrder()
-        //  reservationTime()
     }
 
     private fun loadWashing() {

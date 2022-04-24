@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.collection.ArraySet
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import az.washing.carservice.R
 import az.washing.carservice.databinding.ItemOrderBinding
 import az.washing.carservice.models.Order
 import az.washing.carservice.ui.order.OrderView
@@ -13,7 +15,7 @@ import az.washing.carservice.ui.order.OrderView
 class OrderAdapter(var view: OrderView) : RecyclerView.Adapter<OrderAdapter.OrderVH>() {
     private var _binding: ItemOrderBinding? = null
     private val binding get() = _binding!!
-    private var orderList: ArrayList<Order> = arrayListOf()
+    private var orderList: MutableSet<Order> = mutableSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderVH {
         _binding = ItemOrderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,7 +23,7 @@ class OrderAdapter(var view: OrderView) : RecyclerView.Adapter<OrderAdapter.Orde
     }
 
     override fun onBindViewHolder(holder: OrderVH, position: Int) {
-        holder.bind(orderList[position], position)
+        holder.bind(orderList.elementAt(position), position)
     }
 
     override fun getItemCount(): Int {
@@ -44,9 +46,14 @@ class OrderAdapter(var view: OrderView) : RecyclerView.Adapter<OrderAdapter.Orde
                 tvDayTime.text = "${order.day}, ${order.time}"
 
                 ivEdit.setOnClickListener { view.editOrder(position) }
-                ivDelete.isVisible = true
+                ivDelete.isVisible = false
                 ivDelete.setOnClickListener {
                     view.cancelOrder(position)
+                }
+                if (order.cancel == 1) {
+                    cvOrderRoot.setCardBackgroundColor(
+                        ContextCompat.getColor(root.context, R.color.red)
+                    )
                 }
             }
         }

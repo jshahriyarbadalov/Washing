@@ -33,6 +33,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun verifyOtp(phone: String, otpCode: String) {
+        sharePreferences.edit().clear().apply()
         viewModelScope.launch {
             val verifyCode = Repository.verifyOtp(VerifyOtp(phone, otpCode))
             verifyCode.let {
@@ -44,6 +45,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     }
                     it.body()?.status == 400 -> {
                         view.showErrorMessage("Otp kodu düzgün daxil edin!")
+                    }
+                    it.body()?.status == 300 -> {
+                        view.goRegister()
                     }
                     else -> {
                         view.goRegister()

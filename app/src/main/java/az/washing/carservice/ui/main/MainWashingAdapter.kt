@@ -50,7 +50,6 @@ class MainWashingAdapter(var view: MainView) :
 
                     Glide.with(binding.root).asBitmap().load(washing.image)
                         .override(30, 30)
-                        .placeholder(az.washing.carservice.R.drawable.ic_image)
                         .error(az.washing.carservice.R.drawable.ic_local_car_wash)
                         .centerCrop()
                         .into(ivIcon)

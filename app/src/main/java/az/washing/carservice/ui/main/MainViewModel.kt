@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import az.washing.carservice.data.Repository
 import az.washing.carservice.models.User
 import az.washing.carservice.models.Washing
+import az.washing.carservice.utils.Constants.Companion.LOGOUT
 import az.washing.carservice.utils.Constants.Companion.SAVE_DATA
 import az.washing.carservice.utils.Constants.Companion.USER_TOKEN
 import kotlinx.coroutines.Dispatchers
@@ -50,8 +51,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val logout = Repository.logout("Bearer $token")
             logout.let {
                 if (it.isSuccessful) {
-                    sharePreferences.edit().clear().apply()
-                    view.goLogout()
+                    val response: List<String>? = it.body()
+                    val result = response?.get(1)
+                    if (result.equals(LOGOUT)) {
+                        sharePreferences.edit().clear().apply()
+                        view.goLogout()
+                    }
                 }
             }
         }

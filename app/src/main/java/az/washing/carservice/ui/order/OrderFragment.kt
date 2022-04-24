@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.collection.ArraySet
 import androidx.collection.arraySetOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -26,7 +27,7 @@ class OrderFragment : Fragment(), OrderView {
     private val binding get() = _binding!!
     private val washingList = mutableSetOf<Washing>()
     private val reservationList = mutableSetOf<Reservation>()
-    var orderList: androidx.collection.ArraySet<Order> = arraySetOf()
+    var orderList: ArraySet<Order> = arraySetOf()
     private var adapter: OrderAdapter = OrderAdapter(this)
     private val viewModel by viewModels<OrderViewModel>()
     private val bundle = Bundle()
