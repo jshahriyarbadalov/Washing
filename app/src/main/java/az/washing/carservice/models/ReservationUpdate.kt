@@ -19,7 +19,7 @@ data class ReservationUpdate(
     @SerializedName("time")
     @Expose
     val time: String?,
-    @SerializedName("cancel")
+    @SerializedName("status")
     @Expose
-    val cancel: Int?
+    val status: Int?
 )

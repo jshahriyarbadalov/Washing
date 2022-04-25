@@ -17,6 +17,6 @@ data class Reservation(
     val day: String?,
     @SerializedName("time")
     val time: String?,
-    @SerializedName("cancel")
-    val cancel: Int?
+    @SerializedName("status")
+    val status: Int?
 )

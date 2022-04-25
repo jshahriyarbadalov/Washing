@@ -28,7 +28,6 @@
     <string name="cleaning">Kimyəvi təmizləmə</string>
     <string name="date_time">Gün və tarıx:</string>
     <string name="order">Sifariş et</string>
-    <string name="cancel">Sifarişdən imtina et</string>
     <string name="car_washing_name">Avto yuma adı:</string>
     <string name="load_data">yüklənir</string>
     <string name="car_washing_lbl">Avto yuma:</string>
@@ -39,4 +38,5 @@
     <string name="load_message_txt">Zəhmət olmasa gözləyin</string>
     <string name="true_order_fill">Zəhmət olmasa sifarişi düzgün doldurun.</string>
     <string name="save">Yadda Saxla</string>
+    <string name="cancel_order">Sifarişdən imtina</string>
 </resources>

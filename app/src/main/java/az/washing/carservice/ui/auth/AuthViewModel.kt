@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import az.washing.carservice.data.Repository
@@ -40,6 +41,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 when {
                     !it.body()?.token.isNullOrEmpty()-> {
                         editor.putString(Constants.USER_TOKEN, it.body()?.token)
+                        Log.d("token", it.body()?.token.toString())
                         editor.apply()
                         view.nextPage()
                     }

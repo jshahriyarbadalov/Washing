@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -121,33 +122,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_8"
         android:backgroundTint="@color/light_blue"
         android:paddingVertical="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_16"
         android:text="@string/order"
         android:textStyle="bold"
         app:cornerRadius="@dimen/dimen_10"
-        app:layout_constraintBottom_toTopOf="@+id/btn_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/btn_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_16"
-        android:paddingVertical="@dimen/dimen_8"
-        android:text="@string/cancel"
-        android:textAlignment="center"
-        android:textColor="@color/red"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_show_date"
@@ -255,6 +239,17 @@
         app:layout_constraintStart_toStartOf="@+id/tv_show_time"
         app:layout_constraintTop_toBottomOf="@+id/tv_show_time"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/cb_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/cancel_order"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

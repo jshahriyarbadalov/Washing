@@ -48,7 +48,6 @@ class PersonalFragment : Fragment(), MainView {
         findNavController().clearBackStack(R.id.personalFragment)
         val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
-
     }
 
     override fun goBooking(id: Int) {

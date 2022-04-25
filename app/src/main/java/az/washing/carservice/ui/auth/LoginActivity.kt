@@ -69,6 +69,10 @@ class LoginActivity : AppCompatActivity(), AuthView {
         }
     }
 
+    override fun onBackPressed() {
+        finishAffinity();
+    }
+
     private fun showToastMessage(message: String) {
         Toast.makeText(
             this@LoginActivity,
@@ -88,7 +92,6 @@ class LoginActivity : AppCompatActivity(), AuthView {
 
     override fun nextPage() {
         val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
     }
 

@@ -82,7 +82,7 @@ class OrderFragment : Fragment(), OrderView {
                         item.service_type,
                         item.day,
                         item.time,
-                        item.cancel
+                        item.status
                     )
                 )
             }
@@ -103,29 +103,13 @@ class OrderFragment : Fragment(), OrderView {
     }
 
     override fun editOrder(orderId: Int) {
-        bundle.putInt("washing_name", orderId)
+        bundle.putString("washing_name", orderList.elementAt(orderId).washingName)
         bundle.putString("vehicle_type", orderList.elementAt(orderId).vehicle_type)
         bundle.putString("service_type", orderList.elementAt(orderId).service_type)
         bundle.putString("order_day", orderList.elementAt(orderId).day)
         bundle.putString("order_time", orderList.elementAt(orderId).time)
         bundle.putString(STATUS_UPDATE, "updated")
         findNavController().navigate(R.id.action_orderFragment_to_bookingFragment2, bundle)
-    }
-
-    override fun cancelOrder(orderId: Int) {
-        washingList.find { it.washingName == orderList.elementAt(orderId).washingName }.let {
-            viewModel.cancelReservation(
-                ReservationUpdate(
-                    it?.id,
-                    orderList.elementAt(orderId).vehicle_type,
-                    orderList.elementAt(orderId).service_type,
-                    orderList.elementAt(orderId).day,
-                    orderList.elementAt(orderId).time,
-                    1
-                )
-            )
-            orderList.removeAt(orderId)
-        }
     }
 
 }

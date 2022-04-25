@@ -49,6 +49,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     private var serviceType: String = ""
     private var getTime = ""
     private var getDay = ""
+    private var status = 0
     private var washingId: Int? = 0
     private val cal = Calendar.getInstance()
     private val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
@@ -101,18 +102,14 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 onOrderClick()
             }
 
-            btnCancel.setOnClickListener {
-                viewModel.cancelReservation(
-                    ReservationUpdate(
-                        washingId,
-                        carType,
-                        serviceType,
-                        getDay,
-                        getTime,
-                        1
-                    )
-                )
+            cbCancel.setOnClickListener {
+                status = if (cbCancel.isChecked) {
+                    1
+                } else {
+                    0
+                }
             }
+
         }
     }
 
@@ -134,7 +131,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                         serviceType,
                         getDay,
                         getTime,
-                        0
+                        status
                     )
                 )
             } else {
@@ -168,7 +165,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             && !orderDay.isNullOrEmpty() && !orderTime.isNullOrEmpty()
         ) {
             btnConfirm.text = getString(az.washing.carservice.R.string.save)
-            btnCancel.isVisible = true
+            cbCancel.isVisible = true
             tvShowTimeLbl.isVisible = true
             if (vehicle == CarType.JEEP) {
                 rbJeep.isChecked = true
@@ -228,18 +225,20 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         binding.apply {
             spinWashingName.adapter = spinAdapter
 
-            val washOrderId = arguments?.getInt("washing_name")
+            val washOrderId = arguments?.getString("washing_name")
             val washId = arguments?.getInt(WASHING_ID)
 
             if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
-                washOrderId?.let { orderIndexId ->
-                    if (orderIndexId <= spinWashingName.size) {
-                        spinWashingName.setSelection(LIST_INDEX_ZERO)
-                    } else {
-                        spinWashingName.setSelection(orderIndexId)
-                    }
-                    washings.find { it.washingName == spinWashingName.selectedItem }.let {
+                washOrderId?.let { orderElement ->
+
+                    washings.find { it.washingName == orderElement }.let {
                         washingId = it?.id
+                        val getIndex = washings.indexOf(it)
+                        if (getIndex <= spinWashingName.size) {
+                            spinWashingName.setSelection(LIST_INDEX_ZERO)
+                        } else {
+                            spinWashingName.setSelection(getIndex)
+                        }
                     }
                     washingId?.let { viewModel.getTimesData(it, getDay) }
                 }
@@ -278,7 +277,12 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 parent: AdapterView<*>?,
                 itemSelected: View, selectedItemPosition: Int, selectedId: Long
             ) {
-                getTime = timeList[selectedItemPosition]
+                val orderTime = arguments?.getString("order_time")
+                getTime = if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
+                    orderTime.toString()
+                } else {
+                    timeList[selectedItemPosition]
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -394,7 +398,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         rbSedan.isClickable = isClick
         spinWashingName.isClickable = isClick
         spinTime.isClickable = isClick
-        btnCancel.isClickable = isClick
+        cbCancel.isClickable = isClick
     }
 
     override fun showSuccessMessage(message: String) {
