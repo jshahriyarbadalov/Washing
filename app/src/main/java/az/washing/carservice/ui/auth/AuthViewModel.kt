@@ -38,7 +38,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             val verifyCode = Repository.verifyOtp(VerifyOtp(phone, otpCode))
             verifyCode.let {
                 when {
-                    it.body()?.token != null -> {
+                    !it.body()?.token.isNullOrEmpty()-> {
                         editor.putString(Constants.USER_TOKEN, it.body()?.token)
                         editor.apply()
                         view.nextPage()
@@ -47,10 +47,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         view.showErrorMessage("Otp kodu düzgün daxil edin!")
                     }
                     it.body()?.status == 300 -> {
+                        view.showErrorMessage("Qeydiyyatınız tapılmadı, qeydiyyatdan keçin!")
                         view.goRegister()
                     }
                     else -> {
-                        view.goRegister()
+                        view.showErrorMessage("Serverde xeta! Yeniden cəht edin!")
                     }
                 }
             }
