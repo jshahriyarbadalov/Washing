@@ -167,6 +167,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             btnConfirm.text = getString(az.washing.carservice.R.string.save)
             cbCancel.isVisible = true
             tvShowTimeLbl.isVisible = true
+            tvCurrentTime.isVisible = true
             if (vehicle == CarType.JEEP) {
                 rbJeep.isChecked = true
                 carType = CarType.JEEP
@@ -265,7 +266,6 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 R.layout.simple_spinner_item,
                 timeList
             )
-
         }
         spinTimeAdapter?.setDropDownViewResource(
             R.layout.simple_spinner_dropdown_item
@@ -277,15 +277,23 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 parent: AdapterView<*>?,
                 itemSelected: View, selectedItemPosition: Int, selectedId: Long
             ) {
-                val orderTime = arguments?.getString("order_time")
-                getTime = if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
-                    orderTime.toString()
-                } else {
-                    timeList[selectedItemPosition]
-                }
+                timeList[selectedItemPosition]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+
+        val orderTime = arguments?.getString("order_time")
+        if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
+            getTime = orderTime.toString()
+            timeList.find { it == orderTime }.let {
+                val getTimeIndex = timeList.indexOf(it)
+                if (getTimeIndex <= spinTime.size) {
+                    spinTime.setSelection(LIST_INDEX_ZERO)
+                } else {
+                    spinTime.setSelection(getTimeIndex)
+                }
+            }
         }
     }
 
@@ -344,37 +352,39 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
 
         binding.apply {
 
-            val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, month)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                Log.d("time1", cal.time.toString())
-                Log.d("time12", Calendar.getInstance().time.toString())
-                val currentDay = sdf.format(cal.time)
-                val chooseDay = sdf.format(Calendar.getInstance().time)
+            val datePicker =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, month)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    val currentDay = sdf.format(cal.time)
+                    val chooseDay = sdf.format(Calendar.getInstance().time)
 
-                if (cal.time.after(Calendar.getInstance().time) || currentDay.equals(chooseDay)) {
-                    tvShowDate.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            az.washing.carservice.R.color.light_gray
+                    if (cal.time.after(Calendar.getInstance().time) || currentDay.equals(
+                            chooseDay
                         )
-                    )
-                    tvShowDate.text = sdf.format(cal.time)
-                    washingId?.let { viewModel.getTimesData(it, sdf.format(cal.time)) }
-                    getDay = tvShowDate.text.toString()
+                    ) {
+                        tvShowDate.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                az.washing.carservice.R.color.light_gray
+                            )
+                        )
+                        tvShowDate.text = sdf.format(cal.time)
+                        washingId?.let { viewModel.getTimesData(it, sdf.format(cal.time)) }
+                        getDay = tvShowDate.text.toString()
 
-                } else {
-                    Toast.makeText(context, "Günü düz seçin", Toast.LENGTH_LONG).show()
-                    tvShowDate.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            az.washing.carservice.R.color.red
+                    } else {
+                        Toast.makeText(context, "Günü düz seçin", Toast.LENGTH_LONG).show()
+                        tvShowDate.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                az.washing.carservice.R.color.red
+                            )
                         )
-                    )
-                    tvShowDate.text = sdf.format(cal.time)
+                        tvShowDate.text = sdf.format(cal.time)
+                    }
                 }
-            }
 
             btnShowDate.setOnClickListener {
                 DatePickerDialog(

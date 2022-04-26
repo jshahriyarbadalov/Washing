@@ -2,8 +2,8 @@ package az.washing.carservice.utils
 
 class ServiceType {
     companion object {
-        const val FULL = "Full"
-        const val YARIM = "Yarim"
+        const val FULL = "Tam maşın yuma"
+        const val YARIM = "Avtoyuma"
         const val XIMCISTKA = "Kimyəvi təmizləmə"
     }
 }
