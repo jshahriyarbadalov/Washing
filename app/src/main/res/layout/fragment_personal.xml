@@ -146,6 +146,7 @@
         android:id="@+id/btn_exit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_blue"
         android:layout_marginHorizontal="@dimen/dimen_48"
         android:paddingVertical="@dimen/dimen_10"
         android:text="@string/exit"

@@ -277,7 +277,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
                 parent: AdapterView<*>?,
                 itemSelected: View, selectedItemPosition: Int, selectedId: Long
             ) {
-                timeList[selectedItemPosition]
+                getTime = timeList[selectedItemPosition]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit

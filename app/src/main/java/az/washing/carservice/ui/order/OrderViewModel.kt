@@ -96,23 +96,6 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun cancelReservation(update: ReservationUpdate) {
-        viewModelScope.launch {
-            val reservationUpdate = Repository.reservationUpdate(
-                "Bearer $token",
-                update
-            )
-
-            reservationUpdate.let {
-                if (it.body()?.status == 200) {
-                    viewOrder.showSuccessMessage("Sifarişiniz uğurla ləğv olundu!")
-                } else {
-                    it.message()
-                    viewOrder.showSuccessMessage("Sifarişiniz ləğv olunmadı. Yenidən cəht edin.")
-                }
-            }
-        }
-    }
 
     fun getTimesData(id: Int, day: String) {
         viewModelScope.launch {

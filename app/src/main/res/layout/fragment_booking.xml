@@ -1,270 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tv_washing_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/car_washing_name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spin_washing_name"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8"
-        android:backgroundTint="@color/black"
-        android:paddingVertical="@dimen/dimen_8"
-        app:layout_constraintStart_toStartOf="@+id/tv_washing_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_washing_name"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/tv_car_type_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/car_type"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/spin_washing_name"
-        app:layout_constraintTop_toBottomOf="@+id/spin_washing_name" />
-
-    <RadioGroup
-        android:id="@+id/rg_car_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/tv_car_type_lbl"
-        app:layout_constraintTop_toBottomOf="@+id/tv_car_type_lbl">
-
-        <RadioButton
-            android:id="@+id/rb_sedan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sedan" />
-
-        <RadioButton
-            android:id="@+id/rb_jeep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:text="@string/jeep" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/tv_service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/services"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_car_type" />
-
-    <RadioGroup
-        android:id="@+id/rg_service_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/tv_service"
-        app:layout_constraintTop_toBottomOf="@+id/tv_service">
-
-        <RadioButton
-            android:id="@+id/rb_full"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/full_wash" />
-
-        <RadioButton
-            android:id="@+id/rb_half"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/half_wash" />
-
-        <RadioButton
-            android:id="@+id/rb_chemical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cleaning" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/tv_time_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/date_time"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/rg_service_type"
-        app:layout_constraintTop_toBottomOf="@+id/rg_service_type" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_confirm"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_16"
-        android:backgroundTint="@color/light_blue"
-        android:paddingVertical="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_16"
-        android:text="@string/order"
-        android:textStyle="bold"
-        app:cornerRadius="@dimen/dimen_10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/tv_washing_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="@string/car_washing_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spin_washing_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:backgroundTint="@color/black"
+                android:paddingVertical="@dimen/dimen_8"
+                app:layout_constraintStart_toStartOf="@+id/tv_washing_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_washing_name"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/tv_car_type_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="@string/car_type"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/spin_washing_name"
+                app:layout_constraintTop_toBottomOf="@+id/spin_washing_name" />
+
+            <RadioGroup
+                android:id="@+id/rg_car_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_type_lbl"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_type_lbl">
+
+                <RadioButton
+                    android:id="@+id/rb_sedan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sedan" />
+
+                <RadioButton
+                    android:id="@+id/rb_jeep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:text="@string/jeep" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="@string/services"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_car_type" />
+
+            <RadioGroup
+                android:id="@+id/rg_service_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@+id/tv_service"
+                app:layout_constraintTop_toBottomOf="@+id/tv_service">
+
+                <RadioButton
+                    android:id="@+id/rb_full"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_wash" />
+
+                <RadioButton
+                    android:id="@+id/rb_half"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/half_wash" />
+
+                <RadioButton
+                    android:id="@+id/rb_chemical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cleaning" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_time_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="@string/date_time"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/rg_service_type"
+                app:layout_constraintTop_toBottomOf="@+id/rg_service_type" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_16"
+                android:layout_marginBottom="@dimen/dimen_16"
+                android:backgroundTint="@color/light_blue"
+                android:paddingVertical="@dimen/dimen_16"
+                android:text="@string/order"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/dimen_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_show_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:backgroundTint="@color/light_blue"
+                android:paddingVertical="5dp"
+                android:text="@string/choose_date"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/dimen_10"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_show_date"
+                app:layout_constraintStart_toEndOf="@+id/tv_show_date"
+                app:layout_constraintTop_toTopOf="@+id/tv_show_date" />
+
+            <TextView
+                android:id="@+id/tv_show_date"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:background="@color/light_gray"
+                android:padding="5dp"
+                android:text="gün/ay/il"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_time_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time_date" />
+
+            <TextView
+                android:id="@+id/tv_show_time"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="Vaxtı seçin"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_current_time"
+                app:layout_constraintTop_toBottomOf="@+id/tv_current_time" />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_show_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10"
-        android:backgroundTint="@color/light_blue"
-        android:paddingVertical="5dp"
-        android:text="@string/choose_date"
-        android:textStyle="bold"
-        app:cornerRadius="@dimen/dimen_10"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_show_date"
-        app:layout_constraintStart_toEndOf="@+id/tv_show_date"
-        app:layout_constraintTop_toTopOf="@+id/tv_show_date" />
-
-    <TextView
-        android:id="@+id/tv_show_date"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:background="@color/light_gray"
-        android:padding="5dp"
-        android:text="gün/ay/il"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv_time_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time_date" />
-
-    <TextView
-        android:id="@+id/tv_show_time"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="Vaxtı seçin"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv_current_time"
-        app:layout_constraintTop_toBottomOf="@+id/tv_current_time" />
+            <TextView
+                android:id="@+id/tv_current_time"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:text="Seçilmiş vaxt:"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_show_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_show_date" />
 
 
-    <TextView
-        android:id="@+id/tv_current_time"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:text="Seçilmiş vaxt:"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/tv_show_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_show_date" />
+            <TextView
+                android:id="@+id/tv_show_time_lbl"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:layout_marginEnd="@dimen/dimen_16"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_current_time"
+                app:layout_constraintStart_toEndOf="@+id/tv_current_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_current_time" />
+
+            <ProgressBar
+                android:id="@+id/pb_loader"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_loader_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_message_txt"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h2"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/pb_loader"
+                app:layout_constraintStart_toStartOf="@+id/pb_loader"
+                app:layout_constraintTop_toBottomOf="@+id/pb_loader" />
+
+            <View
+                android:id="@+id/view_transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="@color/transparent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spin_time"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:backgroundTint="@color/black"
+                android:paddingVertical="@dimen/dimen_8"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/tv_show_time"
+                app:layout_constraintStart_toStartOf="@+id/tv_show_time"
+                app:layout_constraintTop_toBottomOf="@+id/tv_show_time"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <CheckBox
+                android:id="@+id/cb_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/cancel_order"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/tv_show_time_lbl"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_8"
-        android:layout_marginEnd="@dimen/dimen_16"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_current_time"
-        app:layout_constraintStart_toEndOf="@+id/tv_current_time"
-        app:layout_constraintTop_toTopOf="@+id/tv_current_time" />
-
-    <ProgressBar
-        android:id="@+id/pb_loader"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_loader_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/load_message_txt"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/pb_loader"
-        app:layout_constraintStart_toStartOf="@+id/pb_loader"
-        app:layout_constraintTop_toBottomOf="@+id/pb_loader" />
-
-    <View
-        android:id="@+id/view_transparent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foreground="@color/transparent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spin_time"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_8"
-        android:backgroundTint="@color/black"
-        android:paddingVertical="@dimen/dimen_8"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/tv_show_time"
-        app:layout_constraintStart_toStartOf="@+id/tv_show_time"
-        app:layout_constraintTop_toBottomOf="@+id/tv_show_time"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <CheckBox
-        android:id="@+id/cb_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/cancel_order"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
