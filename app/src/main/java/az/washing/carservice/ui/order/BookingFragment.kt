@@ -45,6 +45,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     private var washings: ArrayList<Washing> = arrayListOf()
     private var washingNames: ArrayList<String> = arrayListOf()
     private var timeList: ArrayList<String> = arrayListOf()
+    private var bookingId = 0
     private var carType: String = ""
     private var serviceType: String = ""
     private var getTime = ""
@@ -126,6 +127,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
             if (arguments?.getString(STATUS_UPDATE).equals("updated")) {
                 viewModel.updateReservation(
                     ReservationUpdate(
+                        bookingId,
                         washingId,
                         carType,
                         serviceType,
@@ -156,6 +158,7 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
     }
 
     private fun getEditOrder() = with(binding) {
+        val orderId = arguments?.getInt("order_id")
         val vehicle = arguments?.getString("vehicle_type")
         val service = arguments?.getString("service_type")
         val orderDay = arguments?.getString("order_day")
@@ -164,6 +167,9 @@ class BookingFragment : Fragment(), BookingView, OnItemSelectedListener {
         if (!vehicle.isNullOrEmpty() && !service.isNullOrEmpty()
             && !orderDay.isNullOrEmpty() && !orderTime.isNullOrEmpty()
         ) {
+            if (orderId != null) {
+                bookingId = orderId
+            }
             btnConfirm.text = getString(az.washing.carservice.R.string.save)
             cbCancel.isVisible = true
             tvShowTimeLbl.isVisible = true

@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Order(
+    @SerializedName("id")
+    @Expose
+    val id: Int,
     @SerializedName("washing_name")
     @Expose
     val washingName: String,

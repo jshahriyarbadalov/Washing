@@ -77,6 +77,7 @@ class OrderFragment : Fragment(), OrderView {
                 }
                 orderList.add(
                     Order(
+                        item.id,
                         name,
                         item.vehicle_type,
                         item.service_type,
@@ -103,6 +104,7 @@ class OrderFragment : Fragment(), OrderView {
     }
 
     override fun editOrder(orderId: Int) {
+        bundle.putInt("order_id", orderList.elementAt(orderId).id)
         bundle.putString("washing_name", orderList.elementAt(orderId).washingName)
         bundle.putString("vehicle_type", orderList.elementAt(orderId).vehicle_type)
         bundle.putString("service_type", orderList.elementAt(orderId).service_type)

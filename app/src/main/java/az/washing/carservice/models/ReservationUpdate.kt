@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ReservationUpdate(
+    @SerializedName("id")
+    @Expose
+    val id: Int,
     @SerializedName("washing_id")
     @Expose
     val washing_id: Int?,
