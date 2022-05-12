@@ -24,7 +24,7 @@
     <string name="jeep">Jeep</string>
     <string name="services">Xidmətlər:</string>
     <string name="full_wash">Tam maşın yuma</string>
-    <string name="half_wash">Avtoyuma</string>
+    <string name="half_wash">Çöl yuma</string>
     <string name="cleaning">Kimyəvi təmizləmə</string>
     <string name="date_time">Gün və tarıx:</string>
     <string name="order">Sifariş et</string>
@@ -39,4 +39,5 @@
     <string name="true_order_fill">Zəhmət olmasa sifarişi düzgün doldurun.</string>
     <string name="save">Yadda Saxla</string>
     <string name="cancel_order">Sifarişdən imtina</string>
+    <string name="reservation">Rezervasiya</string>
 </resources>

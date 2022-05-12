@@ -27,6 +27,13 @@ object Repository {
         return ApiService.washingApi.profile(auth).body()
     }
 
+    suspend fun profileUpdate(
+        auth: String,
+        profileUpdate: ProfileUpdate
+    ): Response<SendOtpResponse> {
+        return ApiService.washingApi.update(auth, profileUpdate)
+    }
+
     suspend fun logout(auth: String): Response<List<String>> {
         return ApiService.washingApi.logout(auth)
     }

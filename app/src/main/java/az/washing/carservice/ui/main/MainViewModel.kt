@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import az.washing.carservice.data.Repository
+import az.washing.carservice.models.ProfileUpdate
 import az.washing.carservice.models.User
 import az.washing.carservice.models.Washing
 import az.washing.carservice.utils.Constants.Companion.LOGOUT
@@ -71,5 +72,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         dataLoadingJob.invokeOnCompletion { _isLoading.postValue(false) }
+    }
+
+     fun profileUpdate(profileUpdate: ProfileUpdate) {
+        viewModelScope.launch {
+            val repositoryProfile = Repository.profileUpdate("Bearer $token", profileUpdate)
+
+            repositoryProfile.let {
+                if (it.body()?.status == 200){
+                    loadUserInfo()
+                    view.showUpdateMessage("Məlumatlar uğurla yeniləndi!")
+                }else{
+                    it.message()
+                    view.showUpdateMessage("Məlumatlar uğurla yenilənmədi!")
+                }
+            }
+        }
     }
 }

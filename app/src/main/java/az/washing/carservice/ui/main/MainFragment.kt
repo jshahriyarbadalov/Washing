@@ -57,6 +57,10 @@ class MainFragment : Fragment(), MainView {
         TODO("Not yet implemented")
     }
 
+    override fun showUpdateMessage(message: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun goMap(address: String) {
         val url = "http://maps.google.com/maps?daddr=$address"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

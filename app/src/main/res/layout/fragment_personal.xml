@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray_f2">
@@ -10,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_8"
         app:cardCornerRadius="@dimen/dimen_10"
         app:layout_constraintEnd_toEndOf="@+id/iv_logo"
-        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="@+id/iv_logo"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo">
+        app:layout_constraintTop_toBottomOf="@+id/iv_edit">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,11 +57,25 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginStart="@dimen/dimen_8"
                 android:textSize="@dimen/h2"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_name_label"
                 app:layout_constraintStart_toEndOf="@+id/tv_name_label"
                 app:layout_constraintTop_toTopOf="@+id/tv_name_label" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:lines="1"
+                android:minHeight="48dp"
+                android:textSize="@dimen/h2"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name_label"
+                app:layout_constraintStart_toEndOf="@+id/tv_name_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_name_label"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/tv_phone_label"
@@ -78,7 +92,7 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginStart="@dimen/dimen_8"
                 android:textSize="@dimen/h2"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_phone_label"
                 app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
@@ -99,12 +113,26 @@
                 android:id="@+id/tv_car_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginStart="@dimen/dimen_8"
                 android:textSize="@dimen/h2"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_car_number_lbl"
                 app:layout_constraintStart_toEndOf="@+id/tv_car_number_lbl"
                 app:layout_constraintTop_toTopOf="@+id/tv_car_number_lbl"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/et_car_number"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:lines="1"
+                android:textAllCaps="true"
+                android:textSize="@dimen/h2"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_car_number_lbl"
+                app:layout_constraintStart_toEndOf="@+id/tv_car_number_lbl"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_number_lbl"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/tv_email_lbl"
@@ -115,18 +143,32 @@
                 android:textSize="@dimen/h2"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_car_number_lbl"
-                app:layout_constraintTop_toBottomOf="@+id/tv_car_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_number_lbl" />
 
             <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginStart="@dimen/dimen_8"
                 android:textSize="@dimen/h2"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_email_lbl"
                 app:layout_constraintStart_toEndOf="@+id/tv_email_lbl"
                 app:layout_constraintTop_toTopOf="@+id/tv_email_lbl"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:lines="1"
+                android:minHeight="48dp"
+                android:textSize="@dimen/h2"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_email_lbl"
+                app:layout_constraintStart_toEndOf="@+id/tv_email_lbl"
+                app:layout_constraintTop_toTopOf="@+id/tv_email_lbl"
+                tools:ignore="SpeakableTextPresentCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -142,12 +184,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_48"
+        android:backgroundTint="@color/light_blue"
+        android:paddingVertical="@dimen/dimen_10"
+        android:text="@string/save"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/dimen_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_exit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/light_blue"
         android:layout_marginHorizontal="@dimen/dimen_48"
+        android:backgroundTint="@color/light_blue"
         android:paddingVertical="@dimen/dimen_10"
         android:text="@string/exit"
         android:textSize="@dimen/h2"
@@ -157,6 +218,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo"
+        app:srcCompat="@drawable/ic_edit" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

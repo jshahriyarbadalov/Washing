@@ -18,6 +18,12 @@ interface WashingApi {
     @GET("profile")
     suspend fun profile(@Header("Authorization") auth: String): Response<User>
 
+    @POST("update")
+    suspend fun update(
+        @Header("Authorization") auth: String,
+        @Body profile: ProfileUpdate
+    ): Response<SendOtpResponse>
+
     @POST("logout")
     suspend fun logout(@Header("Authorization") auth: String): Response<List<String>>
 

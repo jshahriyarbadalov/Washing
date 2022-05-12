@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/bookingFragment"
         android:name="az.washing.carservice.ui.order.BookingFragment"
-        android:label="Reservasiya"
+        android:label="@string/reservation"
         tools:layout="@layout/fragment_booking">
         <action
             android:id="@+id/action_bookingFragment_to_orderFragment"

@@ -16,5 +16,5 @@
     <color name="light_gray_f2">#f2f2f2f2</color>
 
     <!--    Dark mode-->
-    <color name="textOnPrimary">@color/black</color>
+    <color name="textOnPrimary">@color/white</color>
 </resources>
